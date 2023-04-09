@@ -1,6 +1,9 @@
+"use client"
 import React from 'react'
 import Container from '../Container'
 import Logo from './Logo/Logo'
+import Search from './Search/Search'
+import UserMenu from './UserMenu/UserMenu'
 
 
 export default function Nav():JSX.Element {
@@ -10,6 +13,8 @@ export default function Nav():JSX.Element {
        <Container>
             <div className="flex flex-row items-center justify-between gap-3 md:gap-0">
                 <Logo/>
+            <Search/>
+            <UserMenu/>
             </div>
        </Container>
        </div>
