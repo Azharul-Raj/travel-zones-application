@@ -2,6 +2,7 @@
 import {Poppins} from 'next/font/google';
 import './globals.css'
 import Nav from './components/Nav/Nav';
+import ClientOnly from './components/ClientOnly';
 
 export const metadata = {
   title: 'Travel Zones',
@@ -21,7 +22,10 @@ export default function RootLayout({
     <html lang="en">
       {/* <body className={font.className}>{children}</body> */}
       <body className={font.className}>
+        <ClientOnly>
+
         <Nav/>
+        </ClientOnly>
         {children}
       </body>
     </html>
