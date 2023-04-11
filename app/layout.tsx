@@ -2,6 +2,7 @@
 import {Poppins} from 'next/font/google';
 import './globals.css'
 import Nav from './components/Nav/Nav';
+import Modal from './components/Model/Modal';
 import ClientOnly from './components/ClientOnly';
 
 export const metadata = {
@@ -23,7 +24,7 @@ export default function RootLayout({
       {/* <body className={font.className}>{children}</body> */}
       <body className={font.className}>
         <ClientOnly>
-
+          <Modal actionLabel='MY Btn' isOpen/>
         <Nav/>
         </ClientOnly>
         {children}
