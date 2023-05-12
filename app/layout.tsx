@@ -24,7 +24,7 @@ export default function RootLayout({
       {/* <body className={font.className}>{children}</body> */}
       <body className={font.className}>
         <ClientOnly>
-          <Modal actionLabel='MY Btn' isOpen/>
+          {/* <Modal actionLabel='MY Btn' isOpen/> */}
         <Nav/>
         </ClientOnly>
         {children}
