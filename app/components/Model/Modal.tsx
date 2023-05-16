@@ -75,6 +75,7 @@ const Modal: React.FC<modalProps> = ({
               <div className="flex items-center justify-center relative border-b-[1px] rounded-t p-6">
                 {/* close button */}
                 <button
+                onClick={handleClose}
                   className='p-1 border-0 transition absolute left-9 hover:opacity-70'
                 >
                   <IoMdClose size={18} />
@@ -87,7 +88,9 @@ const Modal: React.FC<modalProps> = ({
               </div>
               {/* Body */}
               <div className="relative p-6 flex-auto">
-
+                  {
+                    body
+                  }
               </div>
               {/* Footer */}
               <div className="flex flex-col gap-2 p-6">
@@ -99,6 +102,7 @@ const Modal: React.FC<modalProps> = ({
                   }
                   <Button label={actionLabel} disabled={disabled} onClick={handleSubmit} />
                 </div>
+                {footer}
               </div>
             </div>
 

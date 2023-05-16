@@ -4,6 +4,8 @@ import './globals.css'
 import Nav from './components/Nav/Nav';
 import Modal from './components/Model/Modal';
 import ClientOnly from './components/ClientOnly';
+import RegisterModal from './components/Model/RegisterModal';
+import ToasterProvider from './providers/ToasterProvider';
 
 export const metadata = {
   title: 'Travel Zones',
@@ -24,7 +26,8 @@ export default function RootLayout({
       {/* <body className={font.className}>{children}</body> */}
       <body className={font.className}>
         <ClientOnly>
-          {/* <Modal actionLabel='MY Btn' isOpen/> */}
+          <ToasterProvider/>
+          <RegisterModal/>
         <Nav/>
         </ClientOnly>
         {children}
