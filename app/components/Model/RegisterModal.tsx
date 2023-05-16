@@ -1,6 +1,7 @@
 "use client"
 import React, { useState } from 'react'
 import axios from 'axios';
+import toast from 'react-hot-toast'
 import { AiFillGithub } from 'react-icons/ai';
 import {FcGoogle} from 'react-icons/fc';
 import {useForm,FieldValues,SubmitHandler} from 'react-hook-form'
@@ -34,7 +35,7 @@ export default function RegisterModal() {
       .then(()=>{
         RegisterModal.onClose()
       })
-      .catch(err=>console.log(err))
+      .catch(err=>toast.error(err.message))
       .finally(()=>{
         setIsLoading(false);
       })
