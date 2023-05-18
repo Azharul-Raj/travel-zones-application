@@ -4,9 +4,13 @@ import Container from '../Container'
 import Logo from './Logo/Logo'
 import Search from './Search/Search'
 import UserMenu from './UserMenu/UserMenu'
+import { User } from '@prisma/client'
 
+interface NavbarProps{
+  currentUser?:User | null;
+}
 
-export default function Nav():JSX.Element {
+export default function Nav({currentUser}:NavbarProps):JSX.Element {
   return (
     <div className='fixed z-10 bg-white shadow-sm w-full'>
         <div className="py-4 border-b-[1px]">

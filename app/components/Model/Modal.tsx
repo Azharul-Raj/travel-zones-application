@@ -36,6 +36,7 @@ const Modal: React.FC<modalProps> = ({
     if (disabled) {
       return;
     }
+    setShowModal(false)
     setTimeout(() => {
       onClose()
     }, 300)
@@ -72,7 +73,7 @@ const Modal: React.FC<modalProps> = ({
         `}>
             <div className="flex flex-col shadow-lg rounded-lg relative h-full translate w-full bg-white md:h-auto border-0 outline-none focus:outline-none">
               {/* Header */}
-              <div className="flex items-center justify-center relative border-b-[1px] rounded-t p-6">
+              <div className="flex items-center justify-center relative border-b-[1px] rounded-t p-2">
                 {/* close button */}
                 <button
                 onClick={handleClose}
@@ -87,7 +88,7 @@ const Modal: React.FC<modalProps> = ({
                 </div>
               </div>
               {/* Body */}
-              <div className="relative p-6 flex-auto">
+              <div className="relative px-6 py-3 flex-auto">
                   {
                     body
                   }

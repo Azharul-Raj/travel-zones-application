@@ -6,6 +6,8 @@ import Modal from './components/Model/Modal';
 import ClientOnly from './components/ClientOnly';
 import RegisterModal from './components/Model/RegisterModal';
 import ToasterProvider from './providers/ToasterProvider';
+import LoginModal from './components/Model/LoginModal';
+import { getCurrentUser } from './actions/getCurrentUser';
 
 export const metadata = {
   title: 'Travel Zones',
@@ -16,11 +18,13 @@ const font=Poppins({
   subsets: ["latin"],
   weight:["100","400","500","600","700","900"]
 })
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  const currentUser= await getCurrentUser()
+  console.log("from line 17",currentUser)
   return (
     <html lang="en">
       {/* <body className={font.className}>{children}</body> */}
@@ -28,7 +32,8 @@ export default function RootLayout({
         <ClientOnly>
           <ToasterProvider/>
           <RegisterModal/>
-        <Nav/>
+          <LoginModal/>
+        <Nav currentUser={currentUser}/>
         </ClientOnly>
         {children}
       </body>
