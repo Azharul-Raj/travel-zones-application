@@ -5,18 +5,23 @@ import Avatar from '../Avatar/Avatar';
 import MenuItem from '../MenuItem/MenuItem';
 import useRegisterModal from '@/app/hooks/useRegisterModal';
 import useLoginModal from '@/app/hooks/useLoginModal';
+import { User } from '@prisma/client';
 
-export default function UserMenu() {
+interface UserMenuProps{
+  currentUser?:User|null
+}
+
+const UserMenu:React.FC<UserMenuProps> =({currentUser})=> {
   const registerModal=useRegisterModal();
   const LoginModal=useLoginModal();
   const [isOpen,setIsOpen]=useState(false);
-
-  // const toggleMenu=useCallback(
-  //   () => {
-  //     setIsOpen(!isOpen)
-  //   },
-  //   [],
-  // )
+console.log(currentUser)
+  const toggleMenu=useCallback(
+    () => {
+      setIsOpen(value=>!value)
+    },
+    [],
+  )
   
   return (
     <div className='relative'>
@@ -24,7 +29,7 @@ export default function UserMenu() {
             <div className="hidden md:block text-sm font-semibold py-3 px-4 rounded-full hover:bg-neutral-100 transition cursor-pointer ">
                 Arbnb  your home
             </div>
-            <div onClick={()=>setIsOpen(!isOpen)} className="p-4 md:py-1 md:px-2 transition rounded-full gap-3 border-[1px] flex flex-row items-center hover:shadow-md cursor-pointer ">
+            <div onClick={toggleMenu} className="p-4 md:py-1 md:px-2 transition rounded-full gap-3 border-[1px] flex flex-row items-center hover:shadow-md cursor-pointer ">
                 <AiOutlineMenu/>
                 <div className="hidden md:block">
                   <Avatar/>
@@ -32,13 +37,29 @@ export default function UserMenu() {
             </div>
         </div>
         {
-          isOpen && <div className="absolute rounded-xl shadow-md w-[40vh] md:w-3/4 bg-white overflow-hidden right-0 top-12 text-sm">
+          isOpen && (<div className="absolute rounded-xl shadow-md w-[40vh] md:w-3/4 bg-white overflow-hidden right-0 top-12 text-sm">
             <div className="flex flex-col cursor-pointer">
-              <MenuItem label='Login' onClick={LoginModal.onOpen}/>
+              {
+                currentUser? 
+                (<>
+                <MenuItem label='My trips' onClick={()=>{}}/>
+                <MenuItem label='My favorites' onClick={()=>{}}/>
+                <MenuItem label='My reservations' onClick={()=>{}}/>
+                <MenuItem label='My properties' onClick={()=>{}}/>
+                <MenuItem label='Airbnb my home' onClick={()=>{}}/>
+                <hr/>
+                <MenuItem label='Logout' onClick={()=>{}}/>
+                </>)
+                :
+                (<>
+                <MenuItem label='Login' onClick={LoginModal.onOpen}/>
               <MenuItem label='Sign Up' onClick={registerModal.onOpen}/>
+                </>)
+              }
             </div>
-          </div>
+          </div>)
         }
     </div>
   )
 }
+export default UserMenu;
