@@ -37,7 +37,7 @@ function Inputs({
             placeholder=' '
             type={type}
             className={`
-            peer w-full p-3 font-light bg-white border-2 rounded-md outline-none focus:outline-none transition disabled:opacity-70 disabled:cursor-not-allowed ${formatPrice? "pl-9":"pl-4"}
+            peer w-full p-3 bg-white border-2 rounded-md outline-none focus:outline-none transition disabled:opacity-70 disabled:cursor-not-allowed ${formatPrice? "pl-9":"pl-4"}
             ${errors[id]? " border-rose-500 focus:border-rose-500 ":"border-neutral-300 focus:border-black"}
             `}
             />

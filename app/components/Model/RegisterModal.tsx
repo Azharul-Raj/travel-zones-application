@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import axios from 'axios';
 import toast from 'react-hot-toast'
 import { AiFillGithub } from 'react-icons/ai';
@@ -11,10 +11,17 @@ import Heading from '../Heading';
 import Inputs from '../Input/Inputs';
 import Button from '../Nav/Button/Button';
 import { signIn } from 'next-auth/react';
+import useLoginModal from '@/app/hooks/useLoginModal';
 
 export default function RegisterModal() {
   const [isLoading,setIsLoading]=useState(false);
-  const RegisterModal=useRegisterModal();
+  const registerModal=useRegisterModal();
+  const loginModal=useLoginModal()
+  // toggle modal
+  const toggleToLogin=useCallback(()=>{
+    registerModal.onClose()
+    loginModal.onOpen()
+  },[registerModal,loginModal])
   const {
     register,
     handleSubmit,
@@ -34,7 +41,7 @@ export default function RegisterModal() {
     setIsLoading(true);
     axios.post("/api/register",data)
       .then(()=>{
-        RegisterModal.onClose()
+        registerModal.onClose()
         toast.success("User created successfully")
       })
       .catch(err=>toast.error(err.message))
@@ -78,19 +85,19 @@ export default function RegisterModal() {
     <div className="flex flex-col gap-4 mt-3">
       <Button outline icon={FcGoogle} label='Continue with google' onClick={()=>signIn("google")}/>
       <Button outline icon={AiFillGithub} label='Continue with github' onClick={()=>signIn('github')}/>
-      <div className="text-center flex items-center gap-2 justify-center text-neutral-500 mt-4 font-light">
+      <div className="text-center flex items-center gap-2 justify-center text-neutral-500 mt-4">
         <div className="">Already have an account?</div>
-        <div className="text-neutral-800 hover:underline cursor-pointer">Login</div>
+        <div onClick={toggleToLogin} className="text-neutral-800 hover:underline cursor-pointer">Login</div>
       </div>
     </div>
   )
   return (
     <Modal
     disabled={isLoading}
-    isOpen={RegisterModal.isOpen}
+    isOpen={registerModal.isOpen}
     title='Register'
     actionLabel='Continue'
-    onClose={RegisterModal.onClose}
+    onClose={registerModal.onClose}
     onSubmit={handleSubmit(onSubmit)}
     body={bodyContent}
     footer={footerContent}

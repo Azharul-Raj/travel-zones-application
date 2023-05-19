@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import axios from 'axios';
 import toast from 'react-hot-toast'
 import { AiFillGithub } from 'react-icons/ai';
@@ -12,12 +12,18 @@ import Button from '../Nav/Button/Button';
 import useLoginModal from '@/app/hooks/useLoginModal';
 import {signIn} from 'next-auth/react'
 import { useRouter } from 'next/navigation';
+import useRegisterModal from '@/app/hooks/useRegisterModal';
 
 export default function LoginModal() {
     const router =useRouter()
   const [isLoading,setIsLoading]=useState(false);
-  const LoginModal=useLoginModal();
-
+  const loginModal=useLoginModal();
+  const registerModal=useRegisterModal()
+// toggle modal
+  const toggleToRegister=useCallback(()=>{
+    loginModal.onClose()
+    registerModal.onOpen()
+  },[registerModal,LoginModal])
   const {
     register,
     handleSubmit,
@@ -27,7 +33,6 @@ export default function LoginModal() {
     }
   }=useForm<FieldValues>({
     defaultValues:{
-      name:"",
       email:"",
       password:""
     }
@@ -44,7 +49,7 @@ export default function LoginModal() {
         if(callback?.ok){
             toast.success("successfully logged in")
             router.refresh()
-            LoginModal.onClose()
+            loginModal.onClose()
         }
         if(callback?.error){
             toast.error(callback?.error)
@@ -69,6 +74,7 @@ export default function LoginModal() {
     <Inputs 
     id='password'
     label='Password'
+    type='password'
     register={register}
     errors={errors}
     required
@@ -80,19 +86,19 @@ export default function LoginModal() {
     <div className="flex flex-col gap-4 mt-3">
       <Button outline icon={FcGoogle} label='Continue with google' onClick={()=>signIn("google")}/>
       <Button outline icon={AiFillGithub} label='Continue with github' onClick={()=>signIn("github")}/>
-      <div className="text-center flex items-center gap-2 justify-center text-neutral-500 mt-4 font-light">
-        <div className="">Already have an account?</div>
-        <div className="text-neutral-800 hover:underline cursor-pointer">Login</div>
+      <div className="text-center flex items-center gap-2 justify-center text-neutral-500 mt-4t">
+        <div className="">New here?</div>
+        <div onClick={toggleToRegister} className="text-neutral-800 hover:underline cursor-pointer">Create an account</div>
       </div>
     </div>
   )
   return (
     <Modal
     disabled={isLoading}
-    isOpen={LoginModal.isOpen}
+    isOpen={loginModal.isOpen}
     title='Login'
     actionLabel='Login'
-    onClose={LoginModal.onClose}
+    onClose={loginModal.onClose}
     onSubmit={handleSubmit(onSubmit)}
     body={bodyContent}
     footer={footerContent}

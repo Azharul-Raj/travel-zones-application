@@ -7,6 +7,7 @@ import useRegisterModal from '@/app/hooks/useRegisterModal';
 import useLoginModal from '@/app/hooks/useLoginModal';
 import { signOut } from 'next-auth/react';
 import { SafeUser } from '@/app/types';
+import useRentModal from '@/app/hooks/useRentModal';
 
 interface UserMenuProps{
   currentUser?:SafeUser|null;
@@ -15,6 +16,7 @@ interface UserMenuProps{
 const UserMenu:React.FC<UserMenuProps> =({currentUser})=> {
   const registerModal=useRegisterModal();
   const LoginModal=useLoginModal();
+  const rentModal=useRentModal()
   const [isOpen,setIsOpen]=useState(false);
   const toggleMenu=useCallback(
     () => {
@@ -22,10 +24,18 @@ const UserMenu:React.FC<UserMenuProps> =({currentUser})=> {
     },
     [],
   )
+  // rent modal
+  const openRentModal=useCallback(()=>{
+    if(!currentUser){
+     return registerModal.onOpen()
+    }
+    // rent modal open
+    rentModal.onOpen()
+  },[registerModal,currentUser])
   return (
     <div className='relative'>
         <div className="flex items-center gap-3">
-            <div className="hidden md:block text-sm font-semibold py-3 px-4 rounded-full hover:bg-neutral-100 transition cursor-pointer ">
+            <div onClick={openRentModal} className="hidden md:block text-sm font-semibold py-3 px-4 rounded-full hover:bg-neutral-100 transition cursor-pointer ">
                 Airbnb  your home
             </div>
             <div onClick={toggleMenu} className="p-4 md:py-1 md:px-2 transition rounded-full gap-3 border-[1px] flex flex-row items-center hover:shadow-md cursor-pointer ">
@@ -45,7 +55,7 @@ const UserMenu:React.FC<UserMenuProps> =({currentUser})=> {
                 <MenuItem label='My favorites' onClick={()=>{}}/>
                 <MenuItem label='My reservations' onClick={()=>{}}/>
                 <MenuItem label='My properties' onClick={()=>{}}/>
-                <MenuItem label='Airbnb my home' onClick={()=>{}}/>
+                <MenuItem label='Airbnb my home' onClick={openRentModal}/>
                 <hr/>
                 <MenuItem label='Logout' onClick={signOut}/>
                 </>)

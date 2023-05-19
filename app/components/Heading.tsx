@@ -20,7 +20,7 @@ function Heading({
         <div className={`text-2xl font-bold`}>
             {title}
         </div>
-        <div className={`font-light text-neutral-500`}>
+        <div className={`font-normal text-gray-800`}>
             {subTitle}
         </div>
     </div>

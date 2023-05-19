@@ -7,6 +7,7 @@ import RegisterModal from './components/Model/RegisterModal';
 import ToasterProvider from './providers/ToasterProvider';
 import LoginModal from './components/Model/LoginModal';
 import getCurrentUser from './actions/getCurrentUser';
+import RentModal from './components/Model/RentModal';
 
 export const metadata = {
   title: 'Travel Zones',
@@ -32,6 +33,7 @@ export default async function RootLayout({
           <ToasterProvider/>
           <RegisterModal/>
           <LoginModal/>
+          <RentModal/>
         <Nav currentUser={currentUser}/>
         </ClientOnly>
         {children}
