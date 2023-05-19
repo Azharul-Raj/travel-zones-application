@@ -1,13 +1,13 @@
-import { getServerSession } from "next-auth";
+import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import prisma from '@/app/libs/prismadb';
-import { toast } from "react-hot-toast";
+// import { toast } from "react-hot-toast";
 
 export async function getSession() {
     return await getServerSession(authOptions)
 }
 
-export async function getCurrentUser() {
+export default async function getCurrentUser() {
    try {
     const session = await getSession()
     if(!session?.user?.email){
@@ -21,9 +21,16 @@ export async function getCurrentUser() {
     if(!currentUser){
         return null;
     }
-    return currentUser;
+    return {
+        ...currentUser,
+        createdAt: currentUser.createdAt.toISOString(),
+        updatedAt: currentUser.updatedAt.toISOString(),
+        emailVerified: 
+          currentUser.emailVerified?.toISOString() || null,
+      };
+    // return currentUser;
    } catch (error:any) {
-    toast.error(error.message)
+    // toast.error(error.message)
    }
 
 }
