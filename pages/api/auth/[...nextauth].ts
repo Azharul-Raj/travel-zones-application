@@ -6,16 +6,17 @@ import GithubProvider from 'next-auth/providers/github'
 import  CredentialsProvider  from "next-auth/providers/credentials";
 import bcrypt from 'bcrypt';
 
-export const authOptions:AuthOptions={
+
+export const authOptions:AuthOptions={    
     adapter:PrismaAdapter(prisma),
     providers:[
         GoogleProvider({
-            clientId:process.env.GITHUB_ID as string,
-            clientSecret:process.env.GITHUB_SECRET as string
+            clientId:process.env.GOOGLE_CLIENT_ID as string,
+            clientSecret:process.env.GOOGLE_CLIENT_SECRET as string
         }),
         GithubProvider({
-            clientId:process.env.GOOGLE_ID as string,
-            clientSecret:process.env.GOOGLE_SECRET as string
+            clientId:process.env.GITHUB_CLIENT_ID as string,
+            clientSecret:process.env.GITHUB_CLIENT_SECRET as string
         }),
         CredentialsProvider({
             name:"credentials",

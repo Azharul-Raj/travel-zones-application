@@ -5,7 +5,6 @@ import Avatar from './Avatar/Avatar';
 import MenuItem from './MenuItem/MenuItem';
 import useRegisterModal from '@/app/hooks/useRegisterModal';
 import useLoginModal from '@/app/hooks/useLoginModal';
-import { User } from '@prisma/client';
 import { signOut } from 'next-auth/react';
 import { SafeUser } from '@/app/types';
 
@@ -23,7 +22,6 @@ const UserMenu:React.FC<UserMenuProps> =({currentUser})=> {
     },
     [],
   )
-  console.log("from 24",currentUser)
   return (
     <div className='relative'>
         <div className="flex items-center gap-3">
@@ -33,7 +31,7 @@ const UserMenu:React.FC<UserMenuProps> =({currentUser})=> {
             <div onClick={toggleMenu} className="p-4 md:py-1 md:px-2 transition rounded-full gap-3 border-[1px] flex flex-row items-center hover:shadow-md cursor-pointer ">
                 <AiOutlineMenu/>
                 <div className="hidden md:block">
-                  <Avatar/>
+                  <Avatar image={currentUser?.image}/>
                 </div>
             </div>
         </div>
