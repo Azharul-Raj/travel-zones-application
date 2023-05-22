@@ -15,7 +15,7 @@ function Categories() {
     <Container>
       <div className="flex justify-between items-center pt-2 overflow-y-auto">
         {
-          categories.map(category=><CategoryBox Icon={category.icon} label={category.label} selected={categoryName===category.label} description={category.description}/>)
+          categories.map(category=><CategoryBox key={category.label} Icon={category.icon} label={category.label} selected={categoryName===category.label} description={category.description}/>)
         }
       </div>
     </Container>

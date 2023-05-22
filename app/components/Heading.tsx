@@ -17,7 +17,7 @@ function Heading({
     <div
    className={`${center? 'text-center':"text-start"}`} 
     >
-        <div className={`text-2xl font-bold`}>
+        <div className={`text-xl font-bold`}>
             {title}
         </div>
         <div className={`font-normal text-gray-800`}>

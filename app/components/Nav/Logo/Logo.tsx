@@ -7,6 +7,7 @@ export default function Logo() {
     const router=useRouter();
   return (
     <Image
+    className='cursor-pointer'
     onClick={()=>router.push('/')}
     alt='logo'
     height={100}
