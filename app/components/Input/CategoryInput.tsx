@@ -9,6 +9,7 @@ interface CategoryInputProps{
     description?:string
 }
 function CategoryInput({icon:Icon,label,selected,onClick}:CategoryInputProps) {
+  
   return (
     <div 
     onClick={()=>onClick(label)}

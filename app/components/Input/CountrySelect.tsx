@@ -16,7 +16,7 @@ interface CountrySelectProps{
   onChange:(value:CountrySelectValue)=>void
 }
 function CountrySelect({value,onChange}:CountrySelectProps) {
-  const {getAll}=useCountries()
+  const {getAll}=useCountries();
   return (
     <div>
       <Select      
@@ -24,7 +24,7 @@ function CountrySelect({value,onChange}:CountrySelectProps) {
       isClearable
       options={getAll()}
       value={value}
-      onChange={(value=>onChange(value as CountrySelectValue))}
+      onChange={(item=>onChange(item as CountrySelectValue))}
         formatOptionLabel={(option:any)=>(
           <div className='flex flex-row items-center gap-3'>
             <div className="">
@@ -40,6 +40,18 @@ function CountrySelect({value,onChange}:CountrySelectProps) {
               </div>
           </div>
         )}
+        classNames={{
+          control:()=>"p-2 border-2",          
+        }}
+        theme={(theme)=>({
+          ...theme,
+          borderRadius:6,
+          colors:{
+            ...theme.colors,
+            primary:'gray',
+            primary25:'#ffe4e6'
+          }
+        })}
       />
     </div>
   )

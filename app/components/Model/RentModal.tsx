@@ -7,6 +7,8 @@ import { categories } from '@/app/data/data';
 import CategoryInput from '../Input/CategoryInput';
 import { FieldValues, useForm } from 'react-hook-form';
 import CountrySelect from '../Input/CountrySelect';
+import dynamic from 'next/dynamic';
+import Counter from '../Input/Counter';
 
 enum STEPS{
   CATEGORY=0,
@@ -71,6 +73,14 @@ function RentModal() {
   })
 
   const category=watch('category');
+  const location=watch('location');
+  const guestCount=watch('guestCount');
+  const roomCount=watch('roomCount');
+  const bathroomCount=watch('bathroomCount');
+
+  const Map=useMemo(()=>dynamic(()=>import('../Map'),{
+    ssr:false
+  }),[location])
 
   const setCustomValue=(id:string,value:any)=>{
     setValue(id,value,{
@@ -92,9 +102,11 @@ function RentModal() {
         {
           categories.map((item,i)=> (
             <div key={i} className="col-span-1">
-              <CategoryInput onClick={(category)=>{
+              <CategoryInput 
+              onClick={(category)=>{
                 setCustomValue('category',category)
-              }} selected={category===item.label} icon={item.icon} label={item.label} />
+              }} 
+              selected={category===item.label} icon={item.icon} label={item.label} />
             </div>
           ))
         }
@@ -106,11 +118,47 @@ function RentModal() {
     bodyContent=(
       <div className="flex flex-col gap-8">
         <Heading title='Where is your place located?' subTitle='Help guests find you' />
-        <CountrySelect/>
+        <CountrySelect value={location} onChange={(value)=>setCustomValue('location',value)}/>
+        <Map center={location?.latlan}/>
       </div>
     )
   }
 
+  if(step===STEPS.INFO){
+    bodyContent=(
+      <div className="flex flex-col gap-8">
+        <Heading
+          title='Share something about your place'
+          subTitle='What amenities do you have ?'
+        />
+        <Counter 
+        title='Guests' subTitle='How many guest do you allow?' 
+        value={guestCount} 
+        onChange={(value)=>setCustomValue('guestCount',value)}/>
+        <hr/>
+        <Counter 
+        title='Rooms' subTitle='How many room do you have?' 
+        value={roomCount} 
+        onChange={(value)=>setCustomValue('roomCount',value)}/>
+        <hr/>
+        <Counter 
+        title='Bathrooms' subTitle='How many guest bathroom do you have?' 
+        value={bathroomCount} 
+        onChange={(value)=>setCustomValue('bathroomCount',value)}/>
+      </div>
+    )
+  }
+
+  if(step===STEPS.IMAGES){
+    bodyContent=(
+      <div className="flex flex-col gap-8">
+        <Heading
+          title='Add a photo of your place'
+          subTitle='Show guests how your place looks like!!'
+        />
+      </div>
+    )
+  }
   return (
     <Modal
     isOpen={rentModal.isOpen}
