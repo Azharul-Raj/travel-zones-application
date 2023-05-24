@@ -1,5 +1,5 @@
 
-import {Poppins} from 'next/font/google';
+import {Nunito} from 'next/font/google';
 import './globals.css'
 import Nav from './components/Nav/Nav';
 import ClientOnly from './components/ClientOnly';
@@ -14,9 +14,9 @@ export const metadata = {
   description: 'Travel zones is a travel related website',
 }
  
-const font=Poppins({
+const font=Nunito({
   subsets: ["latin"],
-  weight:["100","400","500","600","700","900"]
+  // weight:["100","400","500","600","700","900"]
 })
 export default async function RootLayout({
   children,

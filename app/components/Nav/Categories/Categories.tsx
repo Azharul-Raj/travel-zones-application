@@ -10,7 +10,7 @@ function Categories() {
   const categoryName=params?.get('category');
   const pathname=usePathname()
   const mainPage=pathname==='/';
-  if(!mainPage) null;
+  if(!mainPage) return null;
   return (
     <Container>
       <div className="flex justify-between items-center pt-2 overflow-y-auto">

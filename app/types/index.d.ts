@@ -15,3 +15,14 @@ export type SafeListing = Omit<
 > & {
   createdAt: string;
 };
+
+
+
+
+
+// normal type def
+export interface listingProps{
+  params:{
+    listingId?:string;
+  }
+}
