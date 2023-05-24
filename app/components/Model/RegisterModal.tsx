@@ -8,7 +8,7 @@ import {useForm,FieldValues,SubmitHandler} from 'react-hook-form'
 import useRegisterModal from '@/app/hooks/useRegisterModal';
 import Modal from './Modal';
 import Heading from '../Heading';
-import Inputs from '../Input/Inputs';
+import Input from '../Input/Input';
 import Button from '../Nav/Button/Button';
 import { signIn } from 'next-auth/react';
 import useLoginModal from '@/app/hooks/useLoginModal';
@@ -56,21 +56,21 @@ export default function RegisterModal() {
     title='Welcome to Travel Zones' 
       subTitle='Create an account'
     />
-    <Inputs 
+    <Input 
     id='name'
     label='Name'
     register={register}
     errors={errors}
     required
     />
-    <Inputs 
+    <Input 
     id='email'
     label='Email'
     register={register}
     errors={errors}
     required
     />
-    <Inputs 
+    <Input 
     id='password'
     label='Password'
     type='password'

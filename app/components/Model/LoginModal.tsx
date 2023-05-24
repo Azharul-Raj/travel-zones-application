@@ -7,7 +7,7 @@ import {FcGoogle} from 'react-icons/fc';
 import {useForm,FieldValues,SubmitHandler} from 'react-hook-form'
 import Modal from './Modal';
 import Heading from '../Heading';
-import Inputs from '../Input/Inputs';
+import Input from '../Input/Input';
 import Button from '../Nav/Button/Button';
 import useLoginModal from '@/app/hooks/useLoginModal';
 import {signIn} from 'next-auth/react'
@@ -64,14 +64,14 @@ export default function LoginModal() {
       subTitle='Login to your account'
     />
    
-    <Inputs 
+    <Input 
     id='email'
     label='Email'
     register={register}
     errors={errors}
     required
     />
-    <Inputs 
+    <Input 
     id='password'
     label='Password'
     type='password'
