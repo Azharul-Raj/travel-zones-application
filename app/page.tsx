@@ -1,6 +1,7 @@
 
 // import { Inter } from 'next/font/google';
 
+import getCurrentUser from "./actions/getCurrentUser";
 import { getListings } from "./actions/getListings";
 import ClientOnly from "./components/ClientOnly";
 import Container from "./components/Container";
@@ -10,7 +11,8 @@ import ListingCard from "./components/listing/ListingCard";
 // const inter = Inter({ subsets: ['latin'] })
 
 export default async function Home() {
-  const listings=await getListings()
+  const listings=await getListings();
+  const currentUser=await getCurrentUser()
   if(!listings.length){
     return(
       <ClientOnly>
@@ -25,8 +27,8 @@ export default async function Home() {
           {/* listings will be here  */}
         {/* <div className=""> */}
           {
-            listings.map(listing=>(
-              <ListingCard data={listing}/>
+            listings.map((listing,i)=>(
+              <ListingCard key={i} data={listing} currentUser={currentUser}/>
             ))
           }
         {/* </div> */}

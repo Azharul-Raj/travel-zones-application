@@ -5,8 +5,10 @@ export async function getListings(){
         orderBy:{
             createdAt:"desc"
         }
-    })
-    return listings;
+    }) 
+    return listings.map(listing=>({...listing,createdAt:listing.createdAt.toISOString()}))
+       
+    
    } catch (error:any) {
     throw new Error(error)
    }

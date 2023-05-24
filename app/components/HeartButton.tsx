@@ -1,16 +1,14 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { SafeUser } from '../types';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
+import useFavorite from '../hooks/useFavorite';
 
 interface HeartButtonProps{
     listingId:string;
     currentUser?:SafeUser | null;
 }
 function HeartButton({listingId,currentUser}:HeartButtonProps) {
-    const [isFavorite,setIsFavorite]=useState(false)
-    const toggleFavorite=()=>{
-
-    }
+    const {toggleFavorite,hasFavorite}=useFavorite({listingId,currentUser})
   return (
     <div 
     onClick={toggleFavorite}
@@ -22,7 +20,7 @@ function HeartButton({listingId,currentUser}:HeartButtonProps) {
         />
         <AiFillHeart
         size={24}
-        className={`${isFavorite? 'fill-rose-500' : 'fill-neutral-500/70'}`}
+        className={`${hasFavorite? 'fill-rose-500' : 'fill-neutral-500/70'}`}
         />
     </div>
   )

@@ -1,8 +1,8 @@
 "use client"
 import React, { useCallback, useMemo } from 'react';
 import useCountries from '@/app/hooks/useCountries';
-import { SafeUser } from '@/app/types';
-import { Listing, Reservation } from '@prisma/client';
+import { SafeListing, SafeUser } from '@/app/types';
+import {  Reservation } from '@prisma/client';
 import { useRouter } from 'next/navigation';
 import {format} from 'date-fns';
 import Image from 'next/image';
@@ -10,7 +10,7 @@ import HeartButton from '../HeartButton';
 import Button from '../Nav/Button/Button';
 
 interface ListingCardProps{
-    data:Listing;
+    data:SafeListing;
     reservation?:Reservation;
     onAction?:(id:string)=>void;
     disabled?:boolean;
@@ -32,7 +32,6 @@ function ListingCard({
     const {getByValue}=useCountries();
 
     const  location=getByValue(data?.locationValue);
-    console.log(getByValue('AT'))
 
     const handleCancel=useCallback((e:React.MouseEvent<HTMLButtonElement>)=>{
         if(disabled) return null;
