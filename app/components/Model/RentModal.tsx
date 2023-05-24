@@ -85,7 +85,7 @@ const onSubmit:SubmitHandler<FieldValues> =(data)=>{
     return onNext();
   }
   setIsLoading(true);
-  axios.post('/api/listing',data)
+  axios.post('/api/listings',data)
   .then(res=>{
     
     toast.success("Listing created successfully")
@@ -134,7 +134,8 @@ const onSubmit:SubmitHandler<FieldValues> =(data)=>{
               onClick={(category)=>{
                 setCustomValue('category',category)
               }} 
-              selected={category===item.label} icon={item.icon} label={item.label} />
+              selected={category===item.label} icon={item.icon} label={item.label}              
+              />
             </div>
           ))
         }

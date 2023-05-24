@@ -23,7 +23,6 @@ function Input({
     register,
     errors
 }: inputsProps) {
-    console.log(label)
     return (
         <div className="w-full relative">
             {
