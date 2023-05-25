@@ -12,7 +12,6 @@ interface ListingProps{
     }
 }
 const ListingPage=async({params}:ListingProps)=> {
-    console.log(params)
     const listing=await getListingById(params);
     const currentUser=await getCurrentUser();
     const reservations=await getReservations(params)

@@ -3,7 +3,7 @@ import React, { useCallback, useMemo } from 'react';
 import useCountries from '@/app/hooks/useCountries';
 import { SafeListing, SafeReservation, SafeUser } from '@/app/types';
 import {  Reservation } from '@prisma/client';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import {format} from 'date-fns';
 import Image from 'next/image';
 import HeartButton from '../HeartButton';
@@ -29,6 +29,7 @@ function ListingCard({
     currentUser
 }:ListingCardProps) {
     const router=useRouter();
+    const pathname=usePathname();
     const {getByValue}=useCountries();
 
     const  location=getByValue(data?.locationValue);
@@ -55,7 +56,13 @@ function ListingCard({
     },[reservation])
   return (
     <div 
-    onClick={()=>router.push(`/listings/${data.id}`)}
+    onClick={()=>{
+        if(pathname === '/trips' || pathname=== '/reservations'){
+            router.refresh()
+        } else{
+            router.push(`/listings/${data.id}`)
+        }
+    }}
     className="col-span-1 cursor-pointer group">
         <div className="flex flex-col gap-2 w-full">
             <div className="aspect-square overflow-hidden relative rounded-xl w-full">

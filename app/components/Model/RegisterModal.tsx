@@ -43,6 +43,7 @@ export default function RegisterModal() {
       .then(()=>{
         registerModal.onClose()
         toast.success("User created successfully")
+        loginModal.onOpen()
       })
       .catch(err=>toast.error(err.message))
       .finally(()=>{

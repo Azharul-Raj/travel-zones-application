@@ -20,12 +20,13 @@ function TripsClient({
     const [deletingId,setDeletingId]=useState('');
     const onCancel=useCallback((id:string)=>{
         setDeletingId(id);
-        axios.delete(`/api/reservations/${id}`)
+        axios.delete(`/api/reservation/${id}`)
         .then(()=>{
-            toast.success("Reservation canceled")
+            toast.success("Reservation canceled");
         })
         .catch(err=>{
-            toast.error(err?.response?.data?.error);
+            // toast.error(err?.response?.data?.error);
+            console.log(err)
             router.refresh()
         })
         .finally(()=>{

@@ -37,6 +37,7 @@ export async function POST(request: Request, { params }: InputParams) {
     console.log(error)
   }
 }
+// delete favorite function
 export async function DELETE(request: Request, { params }: InputParams) {
   try {
     const currentUser = await getCurrentUser();
@@ -48,7 +49,7 @@ export async function DELETE(request: Request, { params }: InputParams) {
     if (!listingId || typeof listingId !== "string") {
       throw new Error("Invalid Id");
     }
-    // console.log('listingid',listingId)
+    
     let favoriteIds=[...(currentUser.favoriteIds) || []]
     const updatedIds=favoriteIds.filter(id=> id!==listingId)
     const user= await prisma.user.update({
