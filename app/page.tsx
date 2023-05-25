@@ -7,11 +7,14 @@ import ClientOnly from "./components/ClientOnly";
 import Container from "./components/Container";
 import EmptyState from "./components/EmptyState";
 import ListingCard from "./components/listing/ListingCard";
+import { ListingProps } from "./types";
 
-// const inter = Inter({ subsets: ['latin'] })
+interface HomeProps{
+  searchParams:ListingProps;
+}
 
-export default async function Home() {
-  const listings=await getListings();
+const Home=async({searchParams}:HomeProps)=> {
+  const listings=await getListings(searchParams);
   const currentUser=await getCurrentUser()
   if(!listings.length){
     return(
@@ -37,3 +40,4 @@ export default async function Home() {
     </ClientOnly>
   )
 }
+export default Home;

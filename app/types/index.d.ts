@@ -30,8 +30,6 @@ SafeListing,
 
 
 // normal type def
-export interface listingProps{
-  params:{
-    listingId?:string;
-  }
+export interface ListingProps{
+    userId?:string;
 }

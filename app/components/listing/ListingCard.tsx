@@ -2,8 +2,7 @@
 import React, { useCallback, useMemo } from 'react';
 import useCountries from '@/app/hooks/useCountries';
 import { SafeListing, SafeReservation, SafeUser } from '@/app/types';
-import {  Reservation } from '@prisma/client';
-import { usePathname, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import {format} from 'date-fns';
 import Image from 'next/image';
 import HeartButton from '../HeartButton';
@@ -29,12 +28,12 @@ function ListingCard({
     currentUser
 }:ListingCardProps) {
     const router=useRouter();
-    const pathname=usePathname();
     const {getByValue}=useCountries();
 
     const  location=getByValue(data?.locationValue);
 
     const handleCancel=useCallback((e:React.MouseEvent<HTMLButtonElement>)=>{
+        e.stopPropagation()
         if(disabled) return null;
         onAction?.(actionId)
     },[disabled,onAction,actionId])
@@ -56,12 +55,7 @@ function ListingCard({
     },[reservation])
   return (
     <div 
-    onClick={()=>{
-        if(pathname === '/trips' || pathname=== '/reservations'){
-            router.refresh()
-        } else{
-            router.push(`/listings/${data.id}`)
-        }
+    onClick={()=>{router.push(`/listings/${data.id}`)
     }}
     className="col-span-1 cursor-pointer group">
         <div className="flex flex-col gap-2 w-full">
