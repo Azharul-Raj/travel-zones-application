@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react'
 
 import ListingHead from '@/app/components/listing/ListingHead';
 import { categories } from '@/app/data/data';
-import { SafeListing, SafeUser } from '@/app/types';
+import { SafeListing, SafeReservation, SafeUser } from '@/app/types';
 import { Reservation } from '@prisma/client';
 import ListingInfo from '@/app/components/listing/ListingInfo';
 import useLoginModal from '@/app/hooks/useLoginModal';
@@ -21,7 +21,7 @@ const initialDateRange={
 }
 
 interface ListingClientProps{
-    reservations?:Reservation[]; 
+    reservations?:SafeReservation[]; 
     listing:SafeListing & {
         user:SafeUser
     }
@@ -32,9 +32,36 @@ function ListingClient({reservations=[],listing,currentUser}:ListingClientProps)
     const loginModal=useLoginModal();
     const router=useRouter();
     // 
+    const [isLoading,setIsLoading]=useState(false);
+    const [totalPrice,setTotalPrice]=useState(listing.price);
+    const [dateRange,setDateRange]=useState<Range>(initialDateRange);
+    const onCreateReservation=useCallback(()=>{
+            if(!currentUser){
+                return loginModal.onOpen();
+            }
+            setIsLoading(true);
+            
+            axios.post('/api/reservation',{
+                totalPrice,
+                startDate:dateRange.startDate,
+                endDate:dateRange.endDate,
+                listingId:listing?.id
+            })
+            .then(()=>{
+                toast.success("Listing reserved");
+                setDateRange(initialDateRange);
+                //TODO:redirect to {trips}
+                router.push('/trips');            
+            })
+            .catch((err)=>toast.error(err.message))
+            .finally(()=>{
+                setIsLoading(false);
+            })
+        },[currentUser,dateRange,listing?.id,loginModal,totalPrice])
+
     const disabledDate=useMemo(()=>{
         let dates:Date[]=[];
-
+        
         reservations.forEach((reservation)=>{
             const range=eachDayOfInterval({
                 start:new Date(reservation.startDate),
@@ -44,35 +71,12 @@ function ListingClient({reservations=[],listing,currentUser}:ListingClientProps)
         })
         return dates;
     },[reservations])
-
-    const [isLoading,setIsLoading]=useState(false);
-    const [totalPrice,setTotalPrice]=useState(listing.price);
-    const [dateRange,setDateRange]=useState<Range>(initialDateRange);
-
-    const onCreateReservation=()=>useCallback(()=>{
-        if(!currentUser){
-            return loginModal.onOpen();
-        }
-        setIsLoading(true);
-
-        axios.post('/api/reservation',{
-            totalPrice,
-            startDate:dateRange.startDate,
-            endDate:dateRange.endDate,
-            listingId:listing?.id
-        })
-        .then(()=>{
-            toast.success("Listing reserved");
-            setDateRange(initialDateRange);
-            //TODO:redirect to {trips}
-            router.refresh();            
-        })
-        .catch((err)=>toast.error(err.message))
-        .finally(()=>{
-            setIsLoading(false);
-        })
-    },[currentUser,dateRange,listing?.id,loginModal,router])
-
+    
+    
+    
+    const category=useMemo(()=>{
+        return categories.find(category=>category?.label===listing?.category)
+    },[listing.category]) 
 
     useEffect(()=>{
         if(dateRange.startDate && dateRange.endDate){
@@ -80,17 +84,13 @@ function ListingClient({reservations=[],listing,currentUser}:ListingClientProps)
                 dateRange.endDate,
                 dateRange.startDate
             )
-            if(dayCount && listing.price){
+            if(dayCount>0 && listing.price){
                 setTotalPrice(dayCount * listing.price)
             } else{
                 setTotalPrice(listing.price)
             }
         }
     },[dateRange,listing.price])
-
-    const category=useMemo(()=>{
-        return categories.find(category=>category?.label===listing?.category)
-    },[listing.category])    
 
   return (
     <div className="max-w-screen-lg py-32 mx-auto">

@@ -22,7 +22,7 @@ function Map({center}:MapProps) {
     <MapContainer center={center as LeafLet.LatLngExpression || [51,-0.09]}
     zoom={center? 4:2}
     scrollWheelZoom={false}
-    className='h-[30vh] rounded-lg'
+    className='h-[40vh] rounded-lg'
     >
       <TileLayer
         url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
