@@ -68,38 +68,38 @@ const Modal: React.FC<modalProps> = ({
     ">
         <div className="relative w-full h-full mx-auto my-6 md:w-4/6 lg:w-3/6 xl:w-2/5 md:h-auto">
           {/* Content  */}
-          <div className={`transition duration-300 h-full ${showModal ? "translate-y-0" : "translate-y-full"}
-        ${showModal ? "opacity-100" : "opacity-0"}
+          <div className={`
+          transition duration-300 h-full ${showModal ? "translate-y-0 opacity-100" : "translate-y-full opacity-0"}        
         `}>
             <div className="flex flex-col shadow-lg rounded-lg relative h-full translate w-full bg-white md:h-auto border-0 outline-none focus:outline-none">
               {/* Header */}
               <div className="flex items-center justify-center relative border-b-[1px] rounded-t p-2">
                 {/* close button */}
                 <button
-                onClick={handleClose}
+                  onClick={handleClose}
                   className='p-1 border-0 transition absolute left-9 hover:opacity-70'
                 >
                   <IoMdClose size={18} />
                 </button>
-                <div className="text-lg font-semibold">
+                <h4 className="text-lg font-semibold">
                   {
                     title
                   }
-                </div>
+                </h4>
               </div>
               {/* Body */}
               <div className="relative px-6 py-3 flex-auto">
-                  {
-                    body
-                  }
+                {
+                  body
+                }
               </div>
               {/* Footer */}
               <div className="flex flex-col gap-2 p-6">
                 <div className="flex items-center gap-4 w-full">
                   {
-                      secondaryAction && secondaryActionLabel && (
-                        <Button outline disabled={disabled} label={secondaryActionLabel} onClick={handleSecondaryAction} />
-                      )
+                    secondaryAction && secondaryActionLabel && (
+                      <Button outline disabled={disabled} label={secondaryActionLabel} onClick={handleSecondaryAction} />
+                    )
                   }
                   <Button label={actionLabel} disabled={disabled} onClick={handleSubmit} />
                 </div>

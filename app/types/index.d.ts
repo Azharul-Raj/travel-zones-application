@@ -33,3 +33,11 @@ SafeListing,
 export interface ListingProps{
     userId?:string;
 }
+
+export interface CountrySelectValue{
+  flag:string;
+  label:string;
+  latlan:number[];
+  region:string;
+  value:string;
+}

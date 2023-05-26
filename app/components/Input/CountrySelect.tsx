@@ -2,14 +2,9 @@
 import React from 'react'
 import Select from 'react-select';
 import useCountries from '@/app/hooks/useCountries';
+import { CountrySelectValue } from '@/app/types';
 
-interface CountrySelectValue{
-  flag:string;
-  label:string;
-  latlan:number[];
-  region:string;
-  value:string;
-}
+
 
 interface CountrySelectProps{
   value?:CountrySelectValue;
