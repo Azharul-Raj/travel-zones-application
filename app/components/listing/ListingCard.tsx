@@ -64,23 +64,23 @@ function ListingCard({
                 fill
                 className='w-full h-full group-hover:scale-110 transition'
                 alt='Listing'
-                src={data.imageSrc}
+                src={data?.imageSrc}
                 />
                 <div className="absolute top-3 right-3">
-                    <HeartButton listingId={data.id} currentUser={currentUser}/>
+                    <HeartButton listingId={data?.id} currentUser={currentUser}/>
                 </div>
             </div>  
-            <div className=" font-semibold">
+            <p className=" font-semibold">
             {location?.region}, {location?.label}  
-            </div>    
-            <div className="text-neutral-500">{reservationDate || data.category}</div>      
+            </p>    
+            <div className="text-neutral-500">{reservationDate || data?.category}</div>      
             <div className="flex items-center gap-1">
-                <div className="font-semibold">
+                <p className="font-semibold">
                     ${price}
-                </div>
+                </p>
                 {
                     !reservation && (
-                        <div className="font-normal">night</div>
+                        <p className="font-normal">night</p>
                     )
                 }
             </div>

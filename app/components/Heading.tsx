@@ -17,12 +17,12 @@ function Heading({
     <div
    className={`${center? 'text-center':"text-start"}`} 
     >
-        <div className={`text-xl font-bold`}>
+        <h2 className={`text-xl font-bold`}>
             {title}
-        </div>
-        <div className={`font-normal text-gray-800`}>
+        </h2>
+        <h5 className={`font-normal text-gray-800`}>
             {subTitle}
-        </div>
+        </h5>
     </div>
   )
 }

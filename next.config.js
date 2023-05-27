@@ -8,7 +8,8 @@ const nextConfig = {
       "avatars.githubusercontent.com",
       "lh3.googleusercontent.com",
       "res.cloudinary.com",
-      "shorturl.at"
+      "shorturl.at",
+      "i.ibb.co"
     ]
   }
 }

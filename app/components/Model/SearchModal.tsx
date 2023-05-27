@@ -79,7 +79,7 @@ function SearchModal() {
       searchModal.onClose();
       
       router.push(url);
-    },[step,searchModal,location,router,guestCount,roomCount,bathroomCount,params,dateRange])
+    },[step,searchModal,router,guestCount,roomCount,bathroomCount,params,dateRange,onNext])
     
     //
     const actionLabel=useMemo(()=>{

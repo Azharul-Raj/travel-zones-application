@@ -39,7 +39,7 @@
             } catch (error:any) {
                 toast.error(error.message)
             }
-        },[currentUser,listingId,hasFavorite,router])
+        },[currentUser,listingId,hasFavorite,router,loginModal])
 
         return {
             hasFavorite,

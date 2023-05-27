@@ -5,10 +5,11 @@ import Avatar from './Avatar/Avatar';
 import MenuItem from './MenuItem/MenuItem';
 import useRegisterModal from '@/app/hooks/useRegisterModal';
 import useLoginModal from '@/app/hooks/useLoginModal';
-import { signOut } from 'next-auth/react';
+import { signIn, signOut } from 'next-auth/react';
 import { SafeUser } from '@/app/types';
 import useRentModal from '@/app/hooks/useRentModal';
 import { useRouter } from 'next/navigation';
+import { toast } from 'react-hot-toast';
 
 interface UserMenuProps{
   currentUser?:SafeUser|null;
@@ -29,12 +30,28 @@ const UserMenu:React.FC<UserMenuProps> =({currentUser})=> {
   )
   // rent modal
   const openRentModal=useCallback(()=>{
-    // if(!currentUser){
-    //  return registerModal.onOpen()
-    // }
+    if(!currentUser){
+     return registerModal.onOpen()
+    }
     // rent modal open
     rentModal.onOpen()
-  },[registerModal,currentUser])
+  },[registerModal,currentUser,rentModal])
+  const demoLogin=()=>{
+    signIn('credentials',{
+      email:'raj@gmail.com',
+      password:'123456',
+      redirect:false
+    })
+    .then(callback=>{
+      if(callback?.ok){
+        toast.success('Successfully loggedIn');
+        router.refresh()
+      }      
+      if(callback?.error){
+        toast.error(callback?.error)
+      }
+    })
+  }
   return (
     <div className='relative'>
         <div className="flex items-center gap-3">
@@ -66,6 +83,7 @@ const UserMenu:React.FC<UserMenuProps> =({currentUser})=> {
                 (<>
                 <MenuItem label='Login' onClick={LoginModal.onOpen}/>
               <MenuItem label='Sign Up' onClick={registerModal.onOpen}/>
+              <MenuItem label='Demo Login' onClick={demoLogin}/>
                 </>)
               }
             </div>

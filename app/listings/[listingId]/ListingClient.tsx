@@ -57,7 +57,7 @@ function ListingClient({reservations=[],listing,currentUser}:ListingClientProps)
             .finally(()=>{
                 setIsLoading(false);
             })
-        },[currentUser,dateRange,listing?.id,loginModal,totalPrice])
+        },[currentUser,dateRange,listing?.id,loginModal,totalPrice,router])
 
     const disabledDate=useMemo(()=>{
         let dates:Date[]=[];

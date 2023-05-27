@@ -30,7 +30,7 @@ function ReservationClient({reservations,currentUser}:ReservationClientProps) {
         .finally(()=>{
             setDeletingId('')
         })
-    },[])
+    },[router])
   return (
     <ClientOnly>
         <Container>

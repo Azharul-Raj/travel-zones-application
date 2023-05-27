@@ -23,7 +23,7 @@ export default function LoginModal() {
   const toggleToRegister=useCallback(()=>{
     loginModal.onClose()
     registerModal.onOpen()
-  },[registerModal,LoginModal])
+  },[registerModal,loginModal])
   const {
     register,
     handleSubmit,

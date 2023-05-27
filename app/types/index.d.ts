@@ -32,6 +32,13 @@ SafeListing,
 // normal type def
 export interface ListingProps{
     userId?:string;
+    guestCount?:number;
+    bathroomCount?:number;
+    roomCount?:number;
+    startDate?:string;
+    endDate?:string;
+    locationValue?:string;
+    category?:string;
 }
 
 export interface CountrySelectValue{
